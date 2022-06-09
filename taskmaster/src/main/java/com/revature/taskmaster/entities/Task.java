@@ -1,8 +1,5 @@
 package com.revature.taskmaster.entities;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -28,12 +25,11 @@ public class Task implements Comparable {
     /** The user to whom this task is assigned - nullable, but if not null it must have a valid/known user record id */
     private User assignee;
 
-    /** A list of labels used to describe this task and assist with filtering queries - must contain at least one value */
-    private List<String> labels;
+    /** A label used to describe this task and assist with filtering queries - must contain at least one value */
+    private String label;
 
     public Task() {
         super();
-        this.labels = new ArrayList<>();
     }
 
     public Task(String title, String description, int pointValue, User creator, User assignee) {
@@ -42,15 +38,15 @@ public class Task implements Comparable {
         this.pointValue = pointValue;
         this.creator = creator;
         this.assignee = assignee;
-        this.labels = new ArrayList<>();
-    }
-    public Task(String title, String description, int pointValue, User creator, User assignee, List<String> labels) {
-        this(title, description, pointValue, creator, assignee);
-        this.labels = labels;
     }
 
-    public Task(String id, String title, String description, int pointValue, User creator, User assignee, List<String> labels) {
-        this(title, description, pointValue, creator, assignee, labels);
+    public Task(String title, String description, int pointValue, User creator, User assignee, String label) {
+        this(title, description, pointValue, creator, assignee);
+        this.label = label;
+    }
+
+    public Task(String id, String title, String description, int pointValue, User creator, User assignee, String label) {
+        this(title, description, pointValue, creator, assignee, label);
         this.id = id;
     }
 
@@ -102,24 +98,12 @@ public class Task implements Comparable {
         this.assignee = assignee;
     }
 
-    public List<String> getLabels() {
-        return labels;
+    public String getLabel() {
+        return label;
     }
 
-    public void setLabels(List<String> labels) {
-        this.labels = labels;
-    }
-
-    public void addLabels(String... labels) {
-
-        if (this.labels == null) {
-            this.labels = new ArrayList<>();
-        }
-
-        if (labels != null) {
-            this.labels.addAll(Arrays.asList(labels));
-        }
-
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     @Override
@@ -139,12 +123,12 @@ public class Task implements Comparable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return pointValue == task.pointValue && Objects.equals(id, task.id) && Objects.equals(title, task.title) && Objects.equals(description, task.description) && Objects.equals(creator, task.creator) && Objects.equals(assignee, task.assignee) && Objects.equals(labels, task.labels);
+        return pointValue == task.pointValue && Objects.equals(id, task.id) && Objects.equals(title, task.title) && Objects.equals(description, task.description) && Objects.equals(creator, task.creator) && Objects.equals(assignee, task.assignee) && Objects.equals(label, task.label);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, pointValue, creator, assignee, labels);
+        return Objects.hash(id, title, description, pointValue, creator, assignee, label);
     }
 
     @Override
@@ -156,7 +140,7 @@ public class Task implements Comparable {
                 ", pointValue=" + pointValue +
                 ", creator=" + creator +
                 ", assignee=" + assignee +
-                ", labels=" + labels +
+                ", label=" + label +
                 '}';
     }
 

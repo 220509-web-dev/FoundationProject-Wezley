@@ -22,23 +22,23 @@ public class User implements Comparable {
     /** The username of the user - must be at least three characters long and unique within the data source */
     private String username;
 
-    /** A hashed version of the password to the user's account */
-    private String hashedPassword;
+    /** A hashed version of the password to the user's account - must be at least 8 characters long */
+    private String password;
 
     public User() {
         super();
     }
 
-    public User(String firstName, String lastName, String emailAddress, String username, String hashedPassword) {
+    public User(String firstName, String lastName, String emailAddress, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.username = username;
-        this.hashedPassword = hashedPassword;
+        this.password = password;
     }
 
-    public User(String id, String firstName, String lastName, String emailAddress, String username, String hashedPassword) {
-        this(firstName, lastName, emailAddress, username, hashedPassword);
+    public User(String id, String firstName, String lastName, String emailAddress, String username, String password) {
+        this(firstName, lastName, emailAddress, username, password);
         this.id = id;
     }
 
@@ -82,12 +82,12 @@ public class User implements Comparable {
         this.username = username;
     }
 
-    public String getHashedPassword() {
-        return hashedPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setHashedPassword(String hashedPassword) {
-        this.hashedPassword = hashedPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**
@@ -113,12 +113,12 @@ public class User implements Comparable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(emailAddress, user.emailAddress) && Objects.equals(username, user.username) && Objects.equals(hashedPassword, user.hashedPassword);
+        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(emailAddress, user.emailAddress) && Objects.equals(username, user.username) && Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, emailAddress, username, hashedPassword);
+        return Objects.hash(id, firstName, lastName, emailAddress, username, password);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class User implements Comparable {
                 ", lastName='" + lastName + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
                 ", username='" + username + '\'' +
-                ", hashedPassword='" + hashedPassword + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 
