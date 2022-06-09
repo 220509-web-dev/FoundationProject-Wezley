@@ -29,6 +29,11 @@ public class User implements Comparable {
         super();
     }
 
+    public User(String id) {
+        this.id = id;
+    }
+
+
     public User(String firstName, String lastName, String emailAddress, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
