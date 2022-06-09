@@ -32,6 +32,7 @@ public class TaskServlet extends HttpServlet {
 
         if (creatorId != null) {
             resp.getWriter().write(jsonMapper.writeValueAsString(taskService.getTasksByCreatorId(creatorId)));
+            return;
         }
 
         resp.setStatus(501);
