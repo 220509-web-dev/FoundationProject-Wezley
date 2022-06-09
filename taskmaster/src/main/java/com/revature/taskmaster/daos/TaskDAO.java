@@ -47,7 +47,17 @@ public class TaskDAO {
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
+            String sql = "INSERT INTO tasks VALUES (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, newTask.getId());
+            pstmt.setString(2, newTask.getTitle());
+            pstmt.setString(3, newTask.getDescription());
+            pstmt.setInt(4, newTask.getPointValue());
+            pstmt.setString(5, newTask.getCreator().getId());
+            pstmt.setString(6, newTask.getAssignee().getId());
+            pstmt.setString(7, newTask.getLabel());
 
+            pstmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
