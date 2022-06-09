@@ -40,6 +40,11 @@ public class Task implements Comparable {
         this.assignee = assignee;
     }
 
+    public Task(String title, String description, int pointValue, String creatorId, String assigneeId, String label) {
+        this(title, description, pointValue, new User(creatorId), new User(assigneeId));
+        this.label = label;
+    }
+
     public Task(String title, String description, int pointValue, User creator, User assignee, String label) {
         this(title, description, pointValue, creator, assignee);
         this.label = label;
