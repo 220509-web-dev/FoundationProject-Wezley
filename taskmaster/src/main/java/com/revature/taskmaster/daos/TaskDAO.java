@@ -42,4 +42,17 @@ public class TaskDAO {
 
         return tasks;
     }
+
+    public void persist(Task newTask) {
+
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

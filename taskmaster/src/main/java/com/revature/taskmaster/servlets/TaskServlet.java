@@ -1,7 +1,10 @@
 package com.revature.taskmaster.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.taskmaster.dtos.ErrorResponse;
 import com.revature.taskmaster.entities.Task;
+import com.revature.taskmaster.exceptions.BadRequestException;
+import com.revature.taskmaster.exceptions.ResourceNotFoundException;
 import com.revature.taskmaster.services.TaskService;
 
 import javax.servlet.ServletException;
@@ -30,8 +33,24 @@ public class TaskServlet extends HttpServlet {
 
         String creatorId = req.getParameter("creatorId");
 
-        if (creatorId != null) {
-            resp.getWriter().write(jsonMapper.writeValueAsString(taskService.getTasksByCreatorId(creatorId)));
+        try {
+            if (creatorId != null) {
+                resp.getWriter().write(jsonMapper.writeValueAsString(taskService.getTasksByCreatorId(creatorId)));
+                return;
+            }
+        } catch (BadRequestException e) {
+            resp.setStatus(400);
+            resp.getWriter().write(jsonMapper.writeValueAsString(new ErrorResponse(400, e.getMessage())));
+            return;
+        } catch (ResourceNotFoundException e) {
+            resp.setStatus(404);
+            resp.getWriter().write(jsonMapper.writeValueAsString(new ErrorResponse(404, e.getMessage())));
+            return;
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.setStatus(500);
+            ErrorResponse err = new ErrorResponse(500, "The server ran into an unhandled exception. Developers please check the server logs");
+            resp.getWriter().write(jsonMapper.writeValueAsString(err));
             return;
         }
 
